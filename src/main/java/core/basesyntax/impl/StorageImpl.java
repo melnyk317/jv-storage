@@ -3,18 +3,15 @@ package core.basesyntax.impl;
 import core.basesyntax.Storage;
 
 public class StorageImpl<K, V> implements Storage<K, V> {
-    private static final int MAX_ARRAY_SIZE = 10; 
-
-    private K key;
-    private V value;
-    
-    private Object[] keys = new Object[MAX_ARRAY_SIZE];
-    private Object[] values = new Object[MAX_ARRAY_SIZE];
-    int count = 0;
+    private static final int MAX_ARRAY_SIZE = 10;
+    private Object[] keys;
+    private Object[] values;
+    private int count;
 
     public StorageImpl(K key, V value) {
-        this.key = key;
-        this.value = value;
+        Object[] keys = new Object[MAX_ARRAY_SIZE];
+        Object[] values = new Object[MAX_ARRAY_SIZE];
+        int count = 0;
     }
 
     public StorageImpl() {
@@ -22,6 +19,9 @@ public class StorageImpl<K, V> implements Storage<K, V> {
 
     private int findIndexOfKey(K key) {
         for (int i = 0; i < count; i++) {
+            if (keys[i] == null) {
+                break;
+            }
             if (keys[i].equals(key)) {
                 return i;
             }
