@@ -5,6 +5,10 @@ import core.basesyntax.Storage;
 public class StorageImpl<K, V> implements Storage<K, V> {
     private K key;
     private V value;
+    private static final int MAX_ARRAY_SIZE = 10;
+    private Object[] keys = new Object[MAX_ARRAY_SIZE];
+    private Object[] values = new Object[MAX_ARRAY_SIZE];
+    int count = 0;
 
     public StorageImpl(K key, V value) {
         this.key = key;
@@ -14,27 +18,32 @@ public class StorageImpl<K, V> implements Storage<K, V> {
     public StorageImpl() {
     }
 
-    StorageImpl[] storage = new StorageImpl[10];
-    int count = 0;
+    private int findIndexOfKey(K key) {
+        for (int i = 0; i < count; i++) {
+            if (keys[i].equals(key)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     @Override
     public void put(K key, V value) {
-        for (StorageImpl st : storage) {
-            if (st.key.equals(key)) {
-                st.value = value;
-                return;
-            }
+        int index = findIndexOfKey(key);
+        if (index != -1) {
+            values[index] = value;
+        } else {
+            keys[count] = key;
+            values[count] = value;
+            count++;
         }
-        storage[count] = new StorageImpl<K, V>(key, value);
-        count++;
     }
 
     @Override
     public V get(K key) {
-        for (StorageImpl st : storage) {
-            if (st.key.equals(key)) {
-                return (V) st.value;
-            }
+        int index = findIndexOfKey(key);
+        if (index != -1) {
+            return (V) values[index];
         }
         return null;
     }
