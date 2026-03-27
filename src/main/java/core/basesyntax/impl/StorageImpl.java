@@ -9,12 +9,15 @@ public class StorageImpl<K, V> implements Storage<K, V> {
     private int count;
 
     public StorageImpl(K key, V value) {
-        Object[] keys = new Object[MAX_ARRAY_SIZE];
-        Object[] values = new Object[MAX_ARRAY_SIZE];
-        int count = 0;
+        keys = new Object[MAX_ARRAY_SIZE];
+        values = new Object[MAX_ARRAY_SIZE];
+        count = 0;
     }
 
     public StorageImpl() {
+        keys = new Object[MAX_ARRAY_SIZE];
+        values = new Object[MAX_ARRAY_SIZE];
+        count = 0;
     }
 
     private int findIndexOfKey(K key) {
