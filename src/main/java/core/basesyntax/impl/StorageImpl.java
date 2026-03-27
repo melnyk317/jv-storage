@@ -1,20 +1,13 @@
 package core.basesyntax.impl;
 
-import java.util.Objects;
-
 import core.basesyntax.Storage;
+import java.util.Objects;
 
 public class StorageImpl<K, V> implements Storage<K, V> {
     private static final int MAX_ARRAY_SIZE = 10;
     private Object[] keys;
     private Object[] values;
     private int count;
-
-    public StorageImpl(K key, V value) {
-        keys = new Object[MAX_ARRAY_SIZE];
-        values = new Object[MAX_ARRAY_SIZE];
-        count = 0;
-    }
 
     public StorageImpl() {
         keys = new Object[MAX_ARRAY_SIZE];
