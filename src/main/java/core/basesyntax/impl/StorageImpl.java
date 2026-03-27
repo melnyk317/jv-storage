@@ -1,5 +1,7 @@
 package core.basesyntax.impl;
 
+import java.util.Objects;
+
 import core.basesyntax.Storage;
 
 public class StorageImpl<K, V> implements Storage<K, V> {
@@ -22,10 +24,7 @@ public class StorageImpl<K, V> implements Storage<K, V> {
 
     private int findIndexOfKey(K key) {
         for (int i = 0; i < count; i++) {
-            if (keys[i] == null) {
-                break;
-            }
-            if (keys[i].equals(key)) {
+            if (Objects.equals(keys[i], key)) {
                 return i;
             }
         }
